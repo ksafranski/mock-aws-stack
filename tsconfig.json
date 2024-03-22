@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "CommonJS",
+    "target": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "outDir": "dist",
+    "sourceMap": true,
+    "declaration": true,
+    "types": ["node", "jest"]
+  },
+  "include": ["src/**/*.ts"],
+  "ts-node": {
+    "transpileOnly": true
+  }
+}

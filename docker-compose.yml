@@ -1,0 +1,36 @@
+version: '3.0'
+
+services:
+  localstack:
+    image: 'localstack/localstack'
+    container_name: localstack
+    hostname: localstack
+    ports:
+      - '4566:4566'
+    environment:
+      DEBUG: 1
+      DEFAULT_REGION: us-east-1
+      SERVICES: sns,sqs,dynamodb
+      LOCALSTACK_HOST: localstack
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+  app:
+    depends_on:
+      - localstack
+    container_name: app
+    links:
+      - localstack
+    build: .
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - 3000:3000
+    environment:
+      - PORT=3000
+    stdin_open: true
+    tty: true
+    volumes:
+      - './:/app'
+      - './node_modules:/app/node_modules'
+      - '/app/node_modules'
+    command: 'yarn test:watch'
