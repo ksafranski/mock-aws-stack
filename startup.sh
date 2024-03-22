@@ -7,6 +7,7 @@ aws configure set region "es-east-1" --profile localstack
 aws configure set output "text" --profile localstack
 
 # Statics
+base_aws_endpoint="http://localstack:4566"
 base_sns_arn="arn:aws:sns:us-east-1:000000000000:"
 base_sqs_url="http://localstack:4566/000000000000/"
 base_sns_url="http://localstack:4566/000000000000/"
@@ -23,6 +24,7 @@ echo AWS_DEFAULT_REGION=us-east-1 | tee -a .env
 echo AWS_SQS_ENDPOINT="$base_sqs_url" | tee -a .env
 echo AWS_SNS_ENDPOINT="$base_sns_url" | tee -a .env
 echo AWS_DYNAMODB_ENDPOINT="$base_dynamodb_url" | tee -a .env
+echo AWS_S3_ENDPOINT="$base_aws_endpoint" | tee -a .env
 
 # Create SNS Topics
 echo "Creating SNS Topics..."
@@ -77,6 +79,7 @@ for config in ./localstack/s3_buckets/*.json; do
   uri=$(echo "$name" | tr '_' '-') # Replace _ with -
   echo $uri
   aws --endpoint-url=http://localstack:4566 s3api create-bucket \
+    --bucket "$uri" \
     --cli-input-json file://$config \
     --region us-east-1 \
     --profile localstack
@@ -84,5 +87,5 @@ for config in ./localstack/s3_buckets/*.json; do
   # Set environment variables
   name_upper=$(echo "$name" | tr '[a-z]' '[A-Z]')
   env_name="AWS_S3_BUCKET_${name_upper}"
-  echo $env_name="http://$uri.localstack:5466" | tee -a .env
+  echo $env_name="$name" | tee -a .env
 done
