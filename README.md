@@ -18,10 +18,10 @@ The base version of the repo comes with support for a number of AWS services. Th
 
 ## Usage
 
-Running `docker-compose up` will start the LocalStack container and start the services defined in the `docker-compose.yml` file.
+Running `docker-compose up` will start the LocalStack container and start the services defined in the `docker-compose.yml` file running the default command.
 
-To run the service without Localstack logging (very verbose), run:
+To run specific commands (for example `yarn test:watch`) use:
 
 ```bash
-docker compose up --attach app
+docker compose run app yarn test:watch
 ```
