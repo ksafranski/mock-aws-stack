@@ -40,7 +40,7 @@ export class SQS {
     // Set sane defaults
     options = {
       MaxNumberOfMessages: 10,
-      WaitTimeSeconds: 10,
+      WaitTimeSeconds: 1,
       ...options,
     };
     const input = {

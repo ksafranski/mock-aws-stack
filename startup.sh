@@ -9,10 +9,10 @@ aws configure set output "text" --profile localstack
 # Statics
 base_aws_endpoint="http://localstack:4566"
 base_sns_arn="arn:aws:sns:us-east-1:000000000000:"
-base_sqs_url="http://localstack:4566/000000000000/"
-base_sns_url="http://localstack:4566/000000000000/"
+base_sqs_url="$base_aws_endpoint/000000000000/"
+base_sns_url="$base_aws_endpoint/000000000000/"
 base_dynamodb_arn="arn:aws:dynamodb:us-east-1:000000000000:table/"
-base_dynamodb_url="http://localstack:4566/000000000000/"
+base_dynamodb_url="$base_aws_endpoint/000000000000/"
 
 # Reset env file
 rm .env
