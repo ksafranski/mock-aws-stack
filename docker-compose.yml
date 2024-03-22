@@ -10,7 +10,7 @@ services:
     environment:
       DEBUG: 1
       DEFAULT_REGION: us-east-1
-      SERVICES: sns,sqs,dynamodb
+      SERVICES: sns,sqs,dynamodb,s3
       LOCALSTACK_HOST: localstack
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'

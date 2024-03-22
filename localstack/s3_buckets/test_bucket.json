@@ -1,0 +1,6 @@
+{
+  "Bucket": {
+    "DataRedundancy": "SingleAvailabilityZone",
+    "Type": "Directory"
+  }
+}

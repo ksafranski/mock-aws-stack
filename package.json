@@ -14,7 +14,7 @@
   "scripts": {
     "start": "./startup.sh && nodemon ./src/index.ts",
     "test": "./startup.sh && jest",
-    "test:watch": "./startup.sh && jest --watchAll"
+    "test:watch": "./startup.sh"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

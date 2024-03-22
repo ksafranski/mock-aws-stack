@@ -69,3 +69,20 @@ for config in ./localstack/dynamodb_tables/*.json; do
   env_name="AWS_DYNAMODB_TABLE_${name_upper}"
   echo $env_name="$base_dynamodb_arn$name" | tee -a .env
 done
+
+# Create S3 Buckets
+echo "Creating S3 Buckets..."
+for config in ./localstack/s3_buckets/*.json; do
+  name=$(basename -- "${config%.*}")
+  uri=$(echo "$name" | tr '_' '-') # Replace _ with -
+  echo $uri
+  aws --endpoint-url=http://localstack:4566 s3api create-bucket \
+    --cli-input-json file://$config \
+    --region us-east-1 \
+    --profile localstack
+
+  # Set environment variables
+  name_upper=$(echo "$name" | tr '[a-z]' '[A-Z]')
+  env_name="AWS_S3_BUCKET_${name_upper}"
+  echo $env_name="http://$uri.localstack:5466" | tee -a .env
+done
