@@ -1,13 +1,13 @@
 import {
   SQSClient,
   SendMessageCommand,
-  SendMessageResult,
   ReceiveMessageCommand,
   SendMessageCommandInput,
   ReceiveMessageCommandInput,
   DeleteMessageCommand,
-  DeleteMessageBatchResult,
-  ReceiveMessageResult,
+  DeleteMessageCommandOutput,
+  ReceiveMessageCommandOutput,
+  SendMessageCommandOutput,
 } from '@aws-sdk/client-sqs';
 
 export class SQS {
@@ -24,7 +24,7 @@ export class SQS {
   async sendMessage(
     message: string | object,
     options?: Omit<SendMessageCommandInput, 'QueueUrl' | 'MessageBody'>
-  ): Promise<SendMessageResult> {
+  ): Promise<SendMessageCommandOutput> {
     const input = {
       QueueUrl: this.queueUrl,
       MessageBody:
@@ -36,7 +36,7 @@ export class SQS {
 
   async recieiveMessages(
     options?: Omit<ReceiveMessageCommandInput, 'QueueUrl'>
-  ): Promise<ReceiveMessageResult> {
+  ): Promise<ReceiveMessageCommandOutput> {
     // Set sane defaults
     options = {
       MaxNumberOfMessages: 10,
@@ -51,7 +51,7 @@ export class SQS {
   }
   async deleteMessage(
     receiptHandle: string
-  ): Promise<DeleteMessageBatchResult | unknown> {
+  ): Promise<DeleteMessageCommandOutput> {
     const command = new DeleteMessageCommand({
       QueueUrl: this.queueUrl,
       ReceiptHandle: receiptHandle,

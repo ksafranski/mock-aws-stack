@@ -4,6 +4,8 @@ import {
   QueryCommand,
   DynamoDBDocumentClient,
   QueryCommandInput,
+  PutCommandOutput,
+  QueryCommandOutput,
 } from '@aws-sdk/lib-dynamodb';
 
 export class DynamoDB {
@@ -24,7 +26,7 @@ export class DynamoDB {
     return response.TableNames || [];
   }
 
-  async putItem(table: string, item: object): Promise<any> {
+  async putItem(table: string, item: object): Promise<PutCommandOutput> {
     const input = {
       TableName: table,
       Item: item,
@@ -36,7 +38,7 @@ export class DynamoDB {
   async query(
     table: string,
     query: Omit<QueryCommandInput, 'TableName'>
-  ): Promise<any> {
+  ): Promise<QueryCommandOutput> {
     const input = {
       TableName: table,
       ...query,
