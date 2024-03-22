@@ -77,7 +77,6 @@ echo "Creating S3 Buckets..."
 for config in ./localstack/s3_buckets/*.json; do
   name=$(basename -- "${config%.*}")
   uri=$(echo "$name" | tr '_' '-') # Replace _ with -
-  echo $uri
   aws --endpoint-url=http://localstack:4566 s3api create-bucket \
     --bucket "$uri" \
     --cli-input-json file://$config \

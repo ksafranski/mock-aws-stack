@@ -25,3 +25,9 @@ To run specific commands (for example `yarn test:watch`) use:
 ```bash
 docker compose run app yarn test:watch
 ```
+
+There is a `run.sh` utility script that can be used as well:
+
+```bash
+./run.sh yarn test:watch
+```
